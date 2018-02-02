@@ -1,0 +1,36 @@
+{
+
+    "name": "Garmin Live",
+    "description": "Garmin Live",
+    "version": "0.1",
+
+    "permissions": [
+        "tabs",
+        "<all_urls>",
+        "storage"
+    ],
+
+    "browser_action": {
+        "default_icon": "icon.png",
+        "icons": ["icon.png"]
+    },
+
+    "content_scripts": [
+        {
+        "matches": [
+            "http://*/*",
+            "https://*/*"
+            ],
+        "js": ["capture-distance.js"],
+        "run_at": "document_end"    
+        }
+    ], 
+
+    "background":{
+        "scripts": ["background.js"],
+        "persistent": false        
+    },
+      
+    "manifest_version": 2
+
+}
