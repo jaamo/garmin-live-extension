@@ -1,9 +1,5 @@
-function getBgColors (tab) {
-    // But for now, let's just make sure what we have so
-    // far is working as expected.
-    alert('The browser action was clicked! Yay!');
-  }
+function openTotalsPage(tab) {
+	chrome.tabs.create({ url: "totals.html" });
+}
   
-  // When the browser action is clicked, call the
-  // getBgColors function.
-  chrome.browserAction.onClicked.addListener(getBgColors);
+chrome.browserAction.onClicked.addListener(openTotalsPage);

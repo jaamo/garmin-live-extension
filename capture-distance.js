@@ -1,33 +1,45 @@
 var distanceElement = document.querySelectorAll('.activity-stats li:first-child strong');
 
-if (distanceElement) {
+if (distanceElement.length > 0) {
+
+    setInterval(() => {
+        updateDistance();
+    }, 1000);
+
+}
+
+function updateDistance() {
 
     // Get distance.
     var distance = parseFloat(distanceElement[0].innerHTML.replace(/<.*/, ''));
 
+    console.log(distance);
+
     // Get all distances.
-    chrome.storage.sync.get('distances', function(data) {
+    chrome.storage.local.get('distances', function(data) {
 
         try {
 
             // Parse json.        
-            var distances = JSON.parse(data);
+            var distances = JSON.parse(data.distances);
 
             // Set distance.
             distances[window.location.href] = distance;
 
             // Save.
-            chrome.storage.sync.set({'distances': JSON.stringify(distances)});
+            // console.log('Saved!')
+            chrome.storage.local.set({'distances': JSON.stringify(distances)});
             
             
         } catch(e) {
 
-            chrome.storage.sync.set({'distances': JSON.stringify({})});    
+            // console.log('Save failed!', e);
+            chrome.storage.local.set({'distances': JSON.stringify({})});
             
         }
 
     });
-    
+        
 }
 
 
