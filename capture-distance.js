@@ -1,6 +1,9 @@
 var distanceElement = document.querySelectorAll('.activity-stats li:first-child strong');
+var displayLabel;
 
 if (distanceElement.length > 0) {
+
+    createDistanceDisplay();
 
     setInterval(() => {
         updateDistance();
@@ -13,6 +16,7 @@ function updateDistance() {
     // Get distance.
     var distance = parseFloat(distanceElement[0].innerHTML.replace(/<.*/, ''));
 
+    updateDistanceDisplay(distance);
     console.log(distance);
 
     // Get all distances.
@@ -40,6 +44,25 @@ function updateDistance() {
 
     });
         
+}
+
+function updateDistanceDisplay(distance) {
+    displayLabel.innerHTML = 'Distance: ' + distance + ' km';    
+}
+
+function createDistanceDisplay() {
+    displayLabel = document.createElement('div');
+    displayLabel.style.position = 'fixed';
+    displayLabel.style.zIndex = '100000';
+    displayLabel.style.right = '1rem';
+    displayLabel.style.bottom = '0rem';
+    displayLabel.style.background = 'black';
+    displayLabel.style.color = 'white';
+    displayLabel.style.padding = '1rem';
+    displayLabel.style.fontFamily = 'arial';
+    displayLabel.style.fontSize = '2rem';
+    displayLabel.innerHTML = 'Distance: -';
+    document.body.appendChild(displayLabel);
 }
 
 

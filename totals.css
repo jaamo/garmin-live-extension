@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css?family=Audiowide");
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Audiowide', cursive;
+  color: #333333;
+}
+
+.map {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/265548/map-no-route.jpg);
+  background-size: cover;
+}
+
+.map-route-mask {
+  position: absolute;
+  width: 100vw;
+  height: 0vh;
+  overflow: hidden;
+}
+.map-route-mask .map-route {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/265548/map-route.jpg);
+  background-size: cover;
+}
+
+footer {
+  background: #FCE475;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/265548/team_rynkeby_tampere.png);
+  background-repeat: no-repeat;
+  background-size: 4rem;
+  background-position: 1rem center;
+}
+footer .item {
+  display: inline-block;
+  text-align: center;
+  padding: 1rem 3rem;
+  width: 9rem;
+}
+footer .item .value {
+  font-size: 2rem;
+  line-height: 1.8rem;
+}
+footer .item .unit {
+  font-size: 0.8rem;
+  color: #575757;
+}

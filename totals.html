@@ -1,10 +1,38 @@
+<!-- from https://codepen.io/jaamo/pen/GQZMpQ?editors=1100 -->
 <html>
     <head>
+        <meta charset="utf-8">
         <title>Garmin Live totals</title>
         <script src="totals.js"></script>
+        <link rel="stylesheet" href="totals.css" type="text/css" media="all" />        
     </head>
     <body>
-        <div class="total"></div>
+
+
+        <div class="map"></div>
+        <div class="map-route-mask">
+            <div class="map-route"></div>  
+        </div>
+        
+        <footer>
+            <div class="item">
+            <div class="value js-time">11:02:15</div>
+            <div class="unit">aikaa kulunut</div>
+            </div>
+        
+            <div class="item">
+            <div class="value js-distance">12.5</div>
+            <div class="unit">km ajettu</div>
+            </div>
+        
+            <div class="item">
+            <div class="value js-distance-left">1340.5</div>
+            <div class="unit">km jäljellä</div>
+            </div>
+        
+            
+        </footer>
+
     </body>
 </html>
 
