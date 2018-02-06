@@ -12,7 +12,7 @@ NOTE: This extension is not made to use in everyday life. Better to keep it disa
 
 ## How to use
 
-* Download this package to your local computer
+* Download this package to your local computer: https://github.com/jaamo/garmin-live-extension/archive/master.zip
 * Extract the folder to any location on your computer
 * Open *Google Chrome*
 * Open *Extensions* settings
