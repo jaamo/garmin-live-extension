@@ -1,23 +1,63 @@
-var distanceElement = document.querySelectorAll('.activity-stats li:first-child strong');
-var displayLabel;
+let displayLabel;
+let displayInitialized = false;
 
-if (distanceElement.length > 0) {
+captureDistanceStrava();
+captureDistanceGarmin();
 
-    createDistanceDisplay();
+console.log('asdad');
 
-    setInterval(() => {
-        updateDistance();
-    }, 1000);
+/**
+ * Capture distance on Strava. If distance doesn't found bail out.
+ */
+function captureDistanceStrava() {
 
-}
+    // Get distance element.
+    var distanceElement = document.querySelectorAll('.activity-stats li:first-child strong');
 
-function updateDistance() {
+    if (distanceElement.length == 0) {
+        return;
+    }
 
     // Get distance.
     var distance = parseFloat(distanceElement[0].innerHTML.replace(/<.*/, ''));
 
+    saveDistance(distance);
     updateDistanceDisplay(distance);
-    console.log(distance);
+
+    setTimeout(() => {
+        captureDistanceStrava();
+    });
+
+}
+
+/**
+ * Capture distance on Garmin.
+ */
+function captureDistanceGarmin() {
+
+    // Get distance element.
+    var distanceElement = document.querySelectorAll('#statsPlaceholder dl:nth-child(3) dd');
+
+    if (distanceElement.length == 0) {
+        return;
+    }
+
+    // Get distance.
+    var distance = parseFloat(distanceElement[0].innerHTML.replace(/<.*/, ''));
+
+    saveDistance(distance);
+    updateDistanceDisplay(distance);
+
+    setTimeout(() => {
+        captureDistanceGarmin();
+    });
+
+}
+
+/**
+ * Save distace to local storage.
+ */
+function saveDistance(distance) {
 
     // Get all distances.
     chrome.storage.local.get('distances', function(data) {
@@ -46,11 +86,26 @@ function updateDistance() {
         
 }
 
+/**
+ * Update distance display. Create display if it's not created yet.
+ */
 function updateDistanceDisplay(distance) {
+
+    // Create if not exists.
+    if (!displayInitialized) {
+        createDistanceDisplay();
+        displayInitialized = true;
+    }
+
     displayLabel.innerHTML = 'Distance: ' + distance + ' km';    
+
 }
 
+/**
+ * Create distance display.
+ */
 function createDistanceDisplay() {
+
     displayLabel = document.createElement('div');
     displayLabel.style.position = 'fixed';
     displayLabel.style.zIndex = '100000';
@@ -63,6 +118,7 @@ function createDistanceDisplay() {
     displayLabel.style.fontSize = '2rem';
     displayLabel.innerHTML = 'Distance: -';
     document.body.appendChild(displayLabel);
+
 }
 
 

@@ -47,16 +47,19 @@ function updateTotal() {
 
 function updateClock() {
 
-    const startTime = new Date(2018, 1, 6, 12, 0, 0);
+    const timeParts = window.location.toString().replace(/.*date=/, '').split('-');
+
+    const startTime = new Date(timeParts[0], timeParts[1] - 1, timeParts[2], 12, 0, 0);
     const currentTime = new Date();
 
     const elapsedTime = currentTime.getTime() - startTime.getTime();
+    const timeLeft = 24 * 3600 * 1000 - elapsedTime;
 
     document.querySelector('.js-time').innerHTML = parseMillisecondsIntoReadableTime(elapsedTime);
+    document.querySelector('.js-time-left').innerHTML = parseMillisecondsIntoReadableTime(timeLeft);
     
 
 }
-
 
 function parseMillisecondsIntoReadableTime(milliseconds){
 

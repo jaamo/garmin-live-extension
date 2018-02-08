@@ -2,30 +2,43 @@
 body {
   margin: 0;
   padding: 0;
+  width: 100vw;
+  height: 100vh;
   font-family: 'Audiowide', cursive;
   color: #333333;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2b2b2b+0,2b2b2b+48,333333+56,333333+100 */
+  background: #2b2b2b;
+  /* Old browsers */
+  background: -moz-linear-gradient(left, #2b2b2b 0%, #2b2b2b 48%, #333333 56%, #333333 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #2b2b2b 0%, #2b2b2b 48%, #333333 56%, #333333 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #2b2b2b 0%, #2b2b2b 48%, #333333 56%, #333333 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2b2b', endColorstr='#333333',GradientType=1 );
+  /* IE6-9 */
 }
 
 .map {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/265548/map-no-route.jpg);
-  background-size: cover;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/265548/map-no-route.jpg) no-repeat center center;
+  background-size: auto 100%;
 }
 
 .map-route-mask {
   position: absolute;
   width: 100vw;
-  height: 0vh;
+  height: 60vh;
   overflow: hidden;
 }
 .map-route-mask .map-route {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/265548/map-route.jpg);
-  background-size: cover;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/265548/map-route.jpg) no-repeat center center;
+  background-size: auto 100%;
 }
 
 footer {
@@ -35,7 +48,7 @@ footer {
   bottom: 0;
   right: 0;
   text-align: center;
-  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/265548/team_rynkeby_tampere.png);
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/265548/team-rynkeby-tampere.png);
   background-repeat: no-repeat;
   background-size: 4rem;
   background-position: 1rem center;
@@ -43,14 +56,14 @@ footer {
 footer .item {
   display: inline-block;
   text-align: center;
-  padding: 1rem 3rem;
+  padding: 1rem 2rem;
   width: 9rem;
 }
 footer .item .value {
-  font-size: 2rem;
+  font-size: 1.6rem;
   line-height: 1.8rem;
 }
 footer .item .unit {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #575757;
 }
