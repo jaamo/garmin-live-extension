@@ -4,7 +4,6 @@ let displayInitialized = false;
 captureDistanceStrava();
 captureDistanceGarmin();
 
-console.log('asdad');
 
 /**
  * Capture distance on Strava. If distance doesn't found bail out.
@@ -35,18 +34,27 @@ function captureDistanceStrava() {
  */
 function captureDistanceGarmin() {
 
+    // Not in garmin page.
+    if (window.location.href.indexOf('livetrack.garmin.com') == -1) {
+        return false;
+    }
+
     // Get distance element.
     var distanceElement = document.querySelectorAll('#statsPlaceholder dl:nth-child(3) dd');
 
-    if (distanceElement.length == 0) {
-        return;
+    if (distanceElement.length != 0) {
+
+        // Get distance.
+        var distance = parseFloat(distanceElement[0].innerHTML.replace(/<.*/, ''));
+
+        if (!isNaN(distance)) {
+
+            saveDistance(distance);
+            updateDistanceDisplay(distance);    
+    
+        }
+
     }
-
-    // Get distance.
-    var distance = parseFloat(distanceElement[0].innerHTML.replace(/<.*/, ''));
-
-    saveDistance(distance);
-    updateDistanceDisplay(distance);
 
     setTimeout(() => {
         captureDistanceGarmin();
