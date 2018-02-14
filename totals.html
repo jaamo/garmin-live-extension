@@ -8,35 +8,46 @@
     </head>
     <body>
 
+      <div class="map"></div>
+<div class="map-route-mask">
+  <div class="map-route"></div>  
+</div>
 
-        <div class="map"></div>
-        <div class="map-route-mask">
-          <div class="map-route"></div>  
-        </div>
-        
-        <footer>
-          <div class="item">
-            <div class="value js-time">11:02:15</div>
-            <div class="unit">aikaa kulunut</div>
-          </div>
-        
-          <div class="item">
-            <div class="value js-time-left">11:02:15</div>
-            <div class="unit">aikaa jäljellä</div>
-          </div>
-          
-            <div class="item">
-            <div class="value js-distance">12.5</div>
-            <div class="unit">km ajettu</div>
-          </div>
-        
-            <div class="item">
-            <div class="value js-distance-left">1340.5</div>
-            <div class="unit">km jäljellä</div>
-          </div>
-        
-          
-        </footer>
+<div class="settings-button"><i class="fas fa-cog"></i></div>
+
+<div class="settings-dialog">
+  <input type="text" class="settings-dialog__base-distance">
+  <input type="button"  class="settings-dialog__save" value="Tallenna">
+  <dl class="settings-dialog__tracker">
+    <dd class="settings-dialog__tracker__url">https://www.strava.com/activities/1386369722</dd>
+    <dt class="settings-dialog__tracker__distance">12.5 km</dt>
+  </dl>
+</div>
+
+<div class="credit">screen created by: kampiapina.com</div>
+
+<footer>
+  <div class="item">
+    <div class="value js-time">11:02:15</div>
+    <div class="unit">aikaa kulunut</div>
+  </div>
+
+  <div class="item">
+    <div class="value js-time-left">11:02:15</div>
+    <div class="unit">aikaa jäljellä</div>
+  </div>
+  
+    <div class="item">
+    <div class="value js-distance">12.5</div>
+    <div class="unit">km ajettu</div>
+  </div>
+
+    <div class="item">
+    <div class="value js-distance-left">1340.5</div>
+    <div class="unit">km jäljellä</div>
+  </div>
+
+</footer>
 
     </body>
 </html>

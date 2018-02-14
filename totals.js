@@ -55,13 +55,18 @@ function updateClock() {
     const elapsedTime = currentTime.getTime() - startTime.getTime();
     const timeLeft = 24 * 3600 * 1000 - elapsedTime;
 
-    document.querySelector('.js-time').innerHTML = parseMillisecondsIntoReadableTime(elapsedTime);
-    document.querySelector('.js-time-left').innerHTML = parseMillisecondsIntoReadableTime(timeLeft);
+    if (timeLeft > 0) {
+        document.querySelector('.js-time').innerHTML = parseMillisecondsIntoReadableTime(elapsedTime);
+        document.querySelector('.js-time-left').innerHTML = parseMillisecondsIntoReadableTime(timeLeft);
+    } else {
+        document.querySelector('.js-time').innerHTML = '24:00:00';
+        document.querySelector('.js-time-left').innerHTML = '00:00:00';
+    }
     
 
 }
 
-function parseMillisecondsIntoReadableTime(milliseconds){
+function parseMillisecondsIntoReadableTime(milliseconds) {
 
     //Get hours from milliseconds
     var hours = milliseconds / (1000*60*60);
@@ -80,18 +85,104 @@ function parseMillisecondsIntoReadableTime(milliseconds){
   
   
     return h + ':' + m + ':' + s;
-  }
-  
+}
 
+
+function updateSettingsModal() {
+
+    document.querySelector('.settings-dialog__tracker').innerHTML = '';
+
+    chrome.storage.local.get('distances', function(data) {
+
+        try {
+    
+            let distances = JSON.parse(data.distances);
+    
+            for (let url in distances) {
+                // newTotal += distances[url];
+
+                document.querySelector('.settings-dialog__tracker').innerHTML += 
+                    '<dd class="settings-dialog__tracker__url">'+url+'</dd>\
+                     <dt class="settings-dialog__tracker__distance">'+distances[url]+' km</dt>';
+
+            }        
+    
+        } catch(e) {
+            console.log(e);
+        }
+    
+    });    
+
+}
+
+function saveBaseDistance() {
+
+    var baseDistance = document.querySelector('.settings-dialog__base-distance').value;
+    saveDistance('base', parseInt(baseDistance));
+    setTimeout(function() {
+        updateSettingsModal();
+    }, 100);
+
+}
+  
+/**
+ * Save distace to local storage.
+ */
+function saveDistance(url, distance) {
+
+    // Get all distances.
+    chrome.storage.local.get('distances', function(data) {
+
+        try {
+
+            // Parse json.        
+            var distances = JSON.parse(data.distances);
+
+            // Set distance.
+            distances[url] = distance;
+
+            // Save.
+            // console.log('Saved!')
+            chrome.storage.local.set({'distances': JSON.stringify(distances)});
+            
+            
+        } catch(e) {
+
+            // console.log('Save failed!', e);
+            chrome.storage.local.set({'distances': JSON.stringify({})});
+            
+        }
+
+    });
+        
+}
+
+
+/**
+ * Reset.
+ */
 document.onkeydown = function(evt) {
     
-    if (evt.key == "Escape") {
-        chrome.storage.local.set({'distances': JSON.stringify({})});        
+    if (evt.key == "Escape" && confirm('Haluatko nollata kilometrit?')) {
+        chrome.storage.local.set({'distances': JSON.stringify({})});    
+        updateSettingsModal();    
     }
 
-    const keyNumber = parseInt(evt.key);
-    if (!isNaN(keyNumber) && keyNumber >= 0 && keyNumber <= 10) {
-        chrome.storage.local.set({'distances': JSON.stringify({'lol': ultimateTotal * (keyNumber / 10)})});
-    }
+    // const keyNumber = parseInt(evt.key);
+    // if (!isNaN(keyNumber) && keyNumber >= 0 && keyNumber <= 10) {
+    //     chrome.storage.local.set({'distances': JSON.stringify({'lol': ultimateTotal * (keyNumber / 10)})});
+    // }
 
 };
+
+// Toggle settings dialog on/off.
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.settings-button').addEventListener('click', function() {
+        document.querySelector('.settings-dialog').classList.toggle('settings-dialog--visible');
+        updateSettingsModal();
+    });
+    document.querySelector('.settings-dialog__save').addEventListener('click', function() {
+        saveBaseDistance();
+    });
+});
+
